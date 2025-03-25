@@ -1,0 +1,39 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Source code
+*.py text diff=python
+*.pyx text diff=python
+*.cpp text diff=cpp
+*.h text diff=cpp
+*.js text
+*.html text diff=html
+*.css text diff=css
+*.json text
+*.yaml text
+*.yml text
+*.md text diff=markdown
+*.txt text
+*.ini text
+
+# Docker
+*.dockerignore text
+Dockerfile text
+
+# Graphics
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.svg text
+
+# Scripts should use LF line endings
+*.sh text eol=lf
+
+# Exclude files from exporting
+.gitattributes export-ignore
+.gitignore export-ignore
+
+# Mark Jupyter notebooks as documentation
+*.ipynb linguist-documentation

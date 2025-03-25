@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Assistant - UpDoc</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>UpDoc Medical Assistant</h1>
+            <p>AI-powered medical assistant</p>
+        </header>
+        
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/ui/medical" class="active">Medical Assistant</a></li>
+                <li><a href="/docs">API Docs</a></li>
+            </ul>
+        </nav>
+        
+        <main>
+            <section class="medical-interface">
+                <h2>Medical Query Interface</h2>
+                
+                <div class="form-container">
+                    <form id="medical-query-form">
+                        <div class="form-group">
+                            <h3>Patient Information</h3>
+                            <div class="form-row">
+                                <div class="form-field">
+                                    <label for="age">Age:</label>
+                                    <input type="number" id="age" name="age" min="0" max="120">
+                                </div>
+                                <div class="form-field">
+                                    <label for="gender">Gender:</label>
+                                    <select id="gender" name="gender">
+                                        <option value="">Select</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="medical-history">Medical History:</label>
+                            <input type="text" id="medical-history" placeholder="e.g. diabetes, hypertension (comma separated)">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="current-medications">Current Medications:</label>
+                            <input type="text" id="current-medications" placeholder="e.g. lisinopril, metformin (comma separated)">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="symptoms">Current Symptoms:</label>
+                            <input type="text" id="symptoms" placeholder="e.g. headache, dizziness (comma separated)">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="query">Medical Query:</label>
+                            <textarea id="query" rows="4" placeholder="Enter your medical question here..." required></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="additional-context">Additional Context (optional):</label>
+                            <textarea id="additional-context" rows="2" placeholder="Any additional context that might be helpful..."></textarea>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="submit" id="submit-query" class="button">Submit Query</button>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="response-container" id="response-container" style="display: none;">
+                    <h3>AI Response</h3>
+                    <div class="loading" id="loading-indicator">Processing query...</div>
+                    <div id="response-content"></div>
+                    <div id="disclaimer" class="disclaimer"></div>
+                    <div class="response-meta">
+                        <span id="model-used"></span>
+                        <span id="tokens-used"></span>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <footer>
+            <p>&copy; 2025 UpDoc Medical Assistant API</p>
+        </footer>
+    </div>
+    
+    <script src="/static/js/medical.js?v=1"></script>
+</body>
+</html>
