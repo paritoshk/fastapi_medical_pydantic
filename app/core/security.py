@@ -56,10 +56,7 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -
     return encoded_jwt
 
 async def get_current_user(token: str = Depends(oauth2_scheme)) -> User:
-    # FOR DEVELOPMENT: Generate a hardcoded/fake user for easy testing
-    # In a production app, you should use proper JWT validation
-    
-    # Attempt to decode and validate token normally
+
     try:
         payload = jwt.decode(token, settings.SECRET_KEY, algorithms=["HS256"])
         username: str = payload.get("sub")

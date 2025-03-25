@@ -1,7 +1,7 @@
-# UpDoc Medical Assistant Test Cases
+# Leo Medical Assistant Test Cases
 
 ## Overview
-This document contains detailed clinical cases for testing the UpDoc Medical Assistant API. Each case includes comprehensive patient information including medical history, symptoms, vitals, and specific medical questions that would be asked by healthcare providers.
+This document contains detailed clinical cases for testing the Leo Medical Assistant API. Each case includes comprehensive patient information including medical history, symptoms, vitals, and specific medical questions that would be asked by healthcare providers.
 
 ## Case 1: Suspected Acute Coronary Syndrome
 
@@ -346,7 +346,7 @@ This document contains detailed clinical cases for testing the UpDoc Medical Ass
 
 ## Using These Cases
 
-To test the UpDoc Medical Assistant API:
+To test the Leo Medical Assistant API:
 
 1. Create a request with the patient information structured according to the API's expected format
 2. Submit specific questions from the case

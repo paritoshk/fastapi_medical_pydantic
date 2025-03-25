@@ -1,10 +1,10 @@
-# UpDoc Medical Assistant API
+# Leo Medical Assistant API
 
 A secure and compliant API for integrating OpenAI's large language models into healthcare applications.
 
 ## Project Overview
 
-The UpDoc Medical Assistant API helps healthcare providers quickly access AI-generated medical insights for patient care. It serves as an interface between healthcare applications and OpenAI's large language models, processing patient information to generate medically relevant responses while maintaining data privacy and regulatory compliance.
+The Leo Medical Assistant API helps healthcare providers quickly access AI-generated medical insights for patient care. It serves as an interface between healthcare applications and OpenAI's large language models, processing patient information to generate medically relevant responses while maintaining data privacy and regulatory compliance.
 
 ## Features
 

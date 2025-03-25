@@ -417,6 +417,13 @@ document.addEventListener('DOMContentLoaded', function() {
         const query = document.getElementById('query').value;
         const additionalContext = document.getElementById('additional-context').value;
         
+        // Get selected case for vitals
+        const selectedCase = document.getElementById('test-case-select')?.value;
+        let vitals = null;
+        if (selectedCase && testCases[selectedCase] && testCases[selectedCase].vitals) {
+            vitals = testCases[selectedCase].vitals;
+        }
+        
         // Prepare request payload
         const payload = {
             patient_info: {
@@ -424,22 +431,31 @@ document.addEventListener('DOMContentLoaded', function() {
                 gender: gender || null,
                 medical_history: medicalHistory,
                 current_medications: currentMedications,
-                symptoms: symptoms
+                symptoms: symptoms,
+                vitals: vitals
             },
             query: query,
             additional_context: additionalContext || null
         };
         
         try {
-            console.log('Sending request to /test/llm endpoint');
-            // Make API request to the test endpoint without authentication
-            const response = await fetch('/test/llm', {
+            console.log('Sending request to medical API');
+            // Make API request to the demo endpoint (no auth required)
+            let response = await fetch('/api/v1/medical/query_demo', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(payload)
             });
+            
+            // If that fails, try the test endpoint as a fallback
+            if (!response.ok) {
+                console.log('Demo endpoint failed, trying test endpoint');
+                response = await fetch('/api/v1/medical/test', {
+                    method: 'GET'
+                });
+            }
             
             if (!response.ok) {
                 throw new Error(`Error: ${response.status}`);

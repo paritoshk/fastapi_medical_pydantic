@@ -5,7 +5,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
     API_V1_STR: str = "/api/v1"
-    PROJECT_NAME: str = "UpDoc Medical Assistant API"
+    PROJECT_NAME: str = "Leo Medical Assistant API"
     
     # SECURITY
     SECRET_KEY: str = os.getenv("SECRET_KEY", "")

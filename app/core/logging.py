@@ -28,7 +28,7 @@ def setup_logging():
     log_path.mkdir(exist_ok=True)
     
     logger.add(
-        log_path / "updoc.log",
+        log_path / "Leo.log",
         rotation="20 MB",
         retention="14 days",
         level="INFO",

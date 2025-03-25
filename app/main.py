@@ -20,7 +20,7 @@ logger = setup_logging()
 
 app = FastAPI(
     title=settings.PROJECT_NAME,
-    description="UpDoc Medical Assistant API for healthcare providers",
+    description="Leo Medical Assistant API for healthcare providers",
     version="0.1.0",
     docs_url="/docs",
     redoc_url="/redoc",
@@ -74,11 +74,11 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
 # Add startup and shutdown events
 @app.on_event("startup")
 async def startup_event():
-    logger.info(" Starting UpDoc Medical Assistant API")
+    logger.info(" Starting Leo Medical Assistant API")
 
 @app.on_event("shutdown")
 async def shutdown_event():
-    logger.info(" Shutting down UpDoc Medical Assistant API")
+    logger.info(" Shutting down Leo Medical Assistant API")
 
 # Web UI routes
 @app.get("/", response_class=HTMLResponse, tags=["ui"])
