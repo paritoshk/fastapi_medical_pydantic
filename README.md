@@ -42,6 +42,8 @@ The UpDoc Medical Assistant API helps healthcare providers quickly access AI-gen
    ```
    OPENAI_API_KEY=your_openai_api_key
    SECRET_KEY=your_secret_key
+   OPENAI_MODEL=gpt-4o-mini (example)
+   LOG_LEVEL=WARNING
    ```
 
 ### Running the API
@@ -90,3 +92,4 @@ pytest
 ## License
 
 [MIT License](LICENSE)
+
