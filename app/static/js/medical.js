@@ -286,6 +286,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const modelUsed = document.getElementById('model-used');
     const tokensUsed = document.getElementById('tokens-used');
     
+    // Configure marked.js for safe rendering
+    marked.setOptions({
+        breaks: true,        // Add line breaks
+        gfm: true,          // GitHub flavored markdown
+        headerIds: true,    // Add IDs to headers
+        sanitize: false     // Don't sanitize (marked.js will handle this)
+    });
+    
     // Add test case selector to the page
     const formSection = document.querySelector('.medical-interface');
     const testCaseDiv = document.createElement('div');
@@ -397,6 +405,9 @@ document.addEventListener('DOMContentLoaded', function() {
         modelUsed.innerHTML = '';
         tokensUsed.innerHTML = '';
         
+        // Scroll to the response container
+        responseContainer.scrollIntoView({ behavior: 'smooth' });
+        
         // Get form data
         const age = document.getElementById('age').value;
         const gender = document.getElementById('gender').value;
@@ -406,13 +417,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const query = document.getElementById('query').value;
         const additionalContext = document.getElementById('additional-context').value;
         
-        // Get selected case for vitals
-        const selectedCase = testCaseSelect.value;
-        let vitals = null;
-        if (selectedCase && testCases[selectedCase] && testCases[selectedCase].vitals) {
-            vitals = testCases[selectedCase].vitals;
-        }
-        
         // Prepare request payload
         const payload = {
             patient_info: {
@@ -420,39 +424,22 @@ document.addEventListener('DOMContentLoaded', function() {
                 gender: gender || null,
                 medical_history: medicalHistory,
                 current_medications: currentMedications,
-                symptoms: symptoms,
-                vitals: vitals
+                symptoms: symptoms
             },
             query: query,
             additional_context: additionalContext || null
         };
         
         try {
-            console.log('Sending request to API endpoint');
-            // Use a hardcoded JWT token for simplified development
-            const hardcodedToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0dXNlciIsImV4cCI6MTcxMzAxMTIwMH0.OLqiE26OmGJDqRnqgx5gXJOCjNxpKEGW3kplK_4TM64";
-            
-            // Try the authenticated endpoint first
-            let response = await fetch('/api/v1/medical/query', {
+            console.log('Sending request to /test/llm endpoint');
+            // Make API request to the test endpoint without authentication
+            const response = await fetch('/test/llm', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${hardcodedToken}`
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(payload)
             });
-            
-            // If that fails, try the unauthenticated demo endpoint as fallback
-            if (!response.ok && response.status === 401) {
-                console.log('Authentication failed, trying demo endpoint');
-                response = await fetch('/api/v1/medical/query_demo', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(payload)
-                });
-            }
             
             if (!response.ok) {
                 throw new Error(`Error: ${response.status}`);
@@ -461,15 +448,29 @@ document.addEventListener('DOMContentLoaded', function() {
             const data = await response.json();
             console.log('Response received:', data);
             
-            // Update UI with response
-            responseContent.innerHTML = `<p>${data.response.replace(/\n/g, '<br>')}</p>`;
+            // Update UI with response - convert markdown to HTML
+            responseContent.innerHTML = marked.parse(data.response);
+            
+            // Apply syntax highlighting to code blocks if needed
+            document.querySelectorAll('pre code').forEach((block) => {
+                if (window.hljs) {
+                    hljs.highlightBlock(block);
+                }
+            });
+            
+            // Format tables with Bootstrap styling
+            const tables = responseContent.querySelectorAll('table');
+            tables.forEach(table => {
+                table.classList.add('table', 'table-bordered', 'table-hover', 'table-sm');
+            });
+            
             disclaimer.innerHTML = data.disclaimer;
             modelUsed.innerHTML = `Model: ${data.model_used}`;
             tokensUsed.innerHTML = data.tokens_used ? `Tokens: ${data.tokens_used}` : '';
             
         } catch (error) {
             console.error('Error:', error);
-            responseContent.innerHTML = `<p class="error">An error occurred: ${error.message}</p>`;
+            responseContent.innerHTML = `<p class="text-danger">An error occurred: ${error.message}</p>`;
         } finally {
             // Hide loading indicator
             loadingIndicator.style.display = 'none';

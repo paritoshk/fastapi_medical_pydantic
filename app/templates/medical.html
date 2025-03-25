@@ -77,14 +77,23 @@
                     </form>
                 </div>
                 
-                <div class="response-container" id="response-container" style="display: none;">
-                    <h3>AI Response</h3>
-                    <div class="loading" id="loading-indicator">Processing query...</div>
-                    <div id="response-content"></div>
-                    <div id="disclaimer" class="disclaimer"></div>
-                    <div class="response-meta">
-                        <span id="model-used"></span>
-                        <span id="tokens-used"></span>
+                <div id="response-container" class="card mb-5" style="display: none;">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">Leo's Advice</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="loading-indicator" class="text-center">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <p class="mt-2">Leo is thinking...</p>
+                        </div>
+                        <div id="response-content" class="markdown-content"></div>
+                        <div id="disclaimer" class="text-muted small mt-3 font-italic"></div>
+                        <div class="text-muted small mt-3">
+                            <span id="model-used"></span>
+                            <span id="tokens-used" class="ms-3"></span>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -95,6 +104,8 @@
         </footer>
     </div>
     
+    <!-- Include marked.js for markdown rendering -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="/static/js/medical.js?v=1"></script>
 </body>
 </html>
