@@ -89,6 +89,10 @@ pytest
 - Access is controlled via JWT tokens
 - Medical disclaimers are included with all responses
 
+## System Design 
+
+<img width="682" alt="Screenshot 2025-03-25 at 17 20 01" src="https://github.com/user-attachments/assets/a82a9aff-1fca-4c4f-b1ac-4601fe7d5b4e" />
+
 ## License
 
 [MIT License](LICENSE)
